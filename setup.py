@@ -1,15 +1,15 @@
 #!/usr/bin/env python3
 
 from setuptools import setup
+from pathlib import Path
 
 
-with open("README.md", "r") as f:
-    readme = f.read()
+readme = Path("README.md").read_text()
 
 setup(
     name="checkcorruptedimages",
     packages=["checkcorruptedimages"],
-    version="0.1",
+    version="0.2",
     license="GPL3",
     description="Python3 module to check for corrupted images using "
             '"identify" from ImageMagick as underlying mechanism.',
@@ -19,7 +19,7 @@ setup(
     author_email="bubbledoloresuruguay2@gmail.com",
     url="https://github.com/carlosplanchon/checkcorruptedimages",
     download_url="https://github.com/carlosplanchon/"
-        "checkcorruptedimages/archive/v0.1.tar.gz",
+        "checkcorruptedimages/archive/v0.2.tar.gz",
     keywords=["check", "corrupted", "images"],
     classifiers=[
         "Intended Audience :: Developers",
