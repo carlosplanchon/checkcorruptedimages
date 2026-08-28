@@ -1,6 +1,9 @@
 # checkcorruptedimages
 [![CI](https://github.com/carlosplanchon/checkcorruptedimages/actions/workflows/ci.yml/badge.svg)](https://github.com/carlosplanchon/checkcorruptedimages/actions/workflows/ci.yml)
-[![PyPI](https://img.shields.io/pypi/v/checkcorruptedimages)](https://pypi.org/project/checkcorruptedimages/)
+[![PyPI version](https://img.shields.io/pypi/v/checkcorruptedimages.svg)](https://pypi.org/project/checkcorruptedimages/)
+[![Python versions](https://img.shields.io/pypi/pyversions/checkcorruptedimages.svg)](https://pypi.org/project/checkcorruptedimages/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/carlosplanchon/checkcorruptedimages)
 
 *Python module to check for corrupted images by fully decoding them with Pillow in crash-isolated worker processes.*
 
