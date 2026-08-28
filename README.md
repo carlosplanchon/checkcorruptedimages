@@ -75,9 +75,3 @@ In [6]: with m.session() as s:
 - `on_result=` receives each `ImageCheckResult` as it completes; useful for progress reporting.
 - Options can be passed to the constructor or set as attributes: `verbose`, `regard_warnings` and `timeout`.
 - The package ships type hints (`py.typed`), checked with mypy in strict mode.
-
-## Migrating from 0.x
-- ImageMagick is no longer used nor required; decoding is done by Pillow.
-- `check_image_with_imagemagick()` was removed. Everything else keeps its signature; `check_images_on_pool()` remains as a compatibility wrapper (prefer `check_files`, which also reports reasons).
-- Detection differences: Pillow does not surface libjpeg's recoverable C-level warnings (e.g. a few stray bytes in the stream), so such files are no longer flagged; decompression bombs are now detected in strict mode.
-- Supported formats are those of your installed Pillow (JPEG, PNG, GIF, WebP, TIFF, BMP, ...); exotic formats previously covered by ImageMagick delegates (e.g. camera RAW) are out of scope.
