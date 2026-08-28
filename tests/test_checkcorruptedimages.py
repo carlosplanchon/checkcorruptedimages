@@ -110,7 +110,12 @@ class TestIsImageCorrupted:
         assert corrupted is True
 
     def test_timeout_marks_corrupted(self, image_folder):
-        m = CheckCorruptedImages(timeout=0.000001)
+        # A sleeping fake makes the deadline deterministic on every
+        # platform; Windows timers are too coarse for tiny timeouts.
+        m = CheckCorruptedImages(
+            timeout=0.5,
+            _worker_command=[sys.executable, "-c", SLEEP_WORKER_SOURCE]
+            )
 
         _, corrupted = m.is_image_corrupted(image_folder / "ok.jpg")
 
@@ -157,6 +162,16 @@ class TestGetCorruptedImages:
         assert lenient <= strict
         assert image_folder / "fake.jpg" in lenient
 
+
+SLEEP_WORKER_SOURCE = """\
+import json
+import sys
+import time
+
+print(json.dumps({"status": "ready"}), flush=True)
+sys.stdin.readline()
+time.sleep(3600)
+"""
 
 CRASH_WORKER_SOURCE = """\
 import json

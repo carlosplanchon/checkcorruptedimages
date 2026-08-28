@@ -275,6 +275,11 @@ class TestStickyWorkerPool:
         assert crashed[0].reason == REASON_CRASHED
         assert healthy[0].corrupted is False
 
+    @pytest.mark.skipif(
+        sys.platform == "win32",
+        reason="the fake's os.close(0) does not break the parent's "
+               "pipe write on Windows"
+        )
     def test_write_failure_retries_innocent_file(self, tmp_path):
         files = make_paths(tmp_path, ["a.jpg", "b.jpg", "c.jpg"])
         pool = StickyWorkerPool(
