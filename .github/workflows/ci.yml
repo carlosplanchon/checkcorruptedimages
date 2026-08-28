@@ -14,18 +14,64 @@ permissions:
   contents: read
 
 jobs:
-  tests:
-    name: tests (python ${{ matrix.python-version }})
+  lint:
+    name: lint and type-check
     runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9 # v9.0.0
+        with:
+          enable-cache: true
+
+      - name: Install the project
+        run: uv sync --locked --dev
+
+      - name: Ruff
+        run: uv run ruff check .
+
+      - name: Mypy
+        run: uv run mypy
+
+  coverage:
+    name: coverage
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9 # v9.0.0
+        with:
+          enable-cache: true
+
+      - name: Install the project
+        run: uv sync --locked --dev
+
+      - name: Run tests with coverage
+        run: uv run pytest -q --cov=checkcorruptedimages --cov-fail-under=80
+
+  tests:
+    name: tests (${{ matrix.os }}, python ${{ matrix.python-version }})
+    runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
+        os:
+          - ubuntu-latest
         python-version:
           - "3.10"
           - "3.11"
           - "3.12"
           - "3.13"
           - "3.14"
+        include:
+          - os: windows-latest
+            python-version: "3.14"
+          - os: macos-latest
+            python-version: "3.14"
 
     steps:
       - name: Checkout
@@ -36,9 +82,6 @@ jobs:
         with:
           enable-cache: true
           python-version: ${{ matrix.python-version }}
-
-      - name: Install ImageMagick
-        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends imagemagick
 
       - name: Install the project
         run: uv sync --locked --dev
@@ -55,9 +98,6 @@ jobs:
 
       - name: Install uv
         uses: astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9 # v9.0.0
-
-      - name: Install ImageMagick
-        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends imagemagick
 
       - name: Build
         run: uv build
