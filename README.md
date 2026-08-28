@@ -1,4 +1,7 @@
 # checkcorruptedimages
+
+![checkcorruptedimages banner](https://raw.githubusercontent.com/carlosplanchon/checkcorruptedimages/main/assets/banner.jpg)
+
 [![CI](https://github.com/carlosplanchon/checkcorruptedimages/actions/workflows/ci.yml/badge.svg)](https://github.com/carlosplanchon/checkcorruptedimages/actions/workflows/ci.yml)
 [![PyPI version](https://img.shields.io/pypi/v/checkcorruptedimages.svg)](https://pypi.org/project/checkcorruptedimages/)
 [![Python versions](https://img.shields.io/pypi/pyversions/checkcorruptedimages.svg)](https://pypi.org/project/checkcorruptedimages/)
