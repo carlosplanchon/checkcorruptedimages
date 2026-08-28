@@ -9,6 +9,10 @@
 ```
 uv add checkcorruptedimages
 ```
+### Install as a CLI tool
+```
+uv tool install checkcorruptedimages
+```
 ### Install with pip
 ```
 pip install -U checkcorruptedimages
